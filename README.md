@@ -13,6 +13,6 @@
 * Bcrypt Password Hashing -  <!--Something better?-->
 * Heroku & Git Deployment
 * React withou CRA
-* SASS for styling
+* SASS for styles
 
 [Client Repo](https://github.com/djakattack/bufftrack-client-beta)
