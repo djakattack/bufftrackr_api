@@ -16,7 +16,7 @@
 - React withou CRA
 - SASS for styles
 
-## Procedur
+## Procedure
 
 ### MongoDB (Atlas) Setup
 
