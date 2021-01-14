@@ -16,11 +16,15 @@
 - React withou CRA
 - SASS for styles
 
-## Procedure
+## Procedur
 
 ### MongoDB (Atlas) Setup
 
 Mongo is a noSQL (non-relational) database that is different from mySQL and PostGres which uses documents rather than tables/columns to organize data. The language used is very similar to JSON syntax, so it pairs well with JS or Node applications. MongoDB Atlas, the cloud solution, is used in this project because it is easily managed and also because this application will be deployed to Heroku, which does not allow for local instances of Mongo. The cloud database removes the need to use another service for the database when hosting to something like Heroku. <!-- Make this sound more intelligent -->
+
+1. Create a [MongoDB](http://mongodb.com/) account.
+2. Once logged in, click "Visit MongoDB Atlas," if the account overview page is visible. <!--SS-RM-001-->
+3. If necessary, create a new project. <!-- SS-RM-002 -->
 
 ## Notes
 
