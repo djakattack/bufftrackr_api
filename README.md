@@ -15,4 +15,5 @@
 * React withou CRA
 * SASS for styles
 
-[Client Repo](https://github.com/djakattack/bufftrack-client-beta)
+## Notes
+* This project utilizes two separate code bases to function as an exercise in me learning more about the concept of *separation of concerns* as well as learning more about the interaction between multiple repos.  To view the code base for the front-end of this application, you can check out the [Client Repo](https://github.com/djakattack/bufftrack-client-beta).
