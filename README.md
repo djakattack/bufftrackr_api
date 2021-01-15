@@ -90,7 +90,8 @@ The Traversy Media tutorial I am using on Udemy to complete this project is some
 
 ## Resources
 
-- Traversy Media MERN Stack Tutorial
-- Udemy
+- [Traversy Media](https://www.traversymedia.com). Web Development Tutorial and Courses delivered by [Brad Traversy](https://www.youtube.com/channel/UC29ju8bIPH5as8OGnQzwJyA?sub_confirmation=1&feature=subscribe-embed).
+- [Udemy](http://www.udemy.com). Catalog of short and long courses, some of which provide instructional material for coding/web development.
+- [NPM](https://www.npmjms.com). Catalog of all available NPM package that also details how each one may be used.
 
 ##### _Last Updated_: 20211501
