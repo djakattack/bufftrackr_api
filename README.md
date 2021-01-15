@@ -10,7 +10,7 @@ This project utilizes two separate code bases to function as an exercise in me l
 
 <!-- Some more in-depth SOPs are included within this repository.   -->
 
-## Technology Used
+## **Technology Used**
 
 - VSCode Editor - Text editor.
 - ES6+ Syntax - Language for structuring/promising
@@ -26,11 +26,13 @@ This project utilizes two separate code bases to function as an exercise in me l
 - React withou CRA
 - SASS for styles
 
-## Procedure
+## **Procedure**
 
 ### MongoDB (Atlas) Setup
 
 Mongo is a noSQL (non-relational) database that is different from mySQL and PostGres which uses documents rather than tables/columns to organize data. The language used is very similar to JSON syntax, so it pairs well with JS or Node applications. MongoDB Atlas, the cloud solution, is used in this project because it is easily managed and also because this application will be deployed to Heroku, which does not allow for local instances of Mongo. The cloud database removes the need to use another service for the database when hosting to something like Heroku. <!-- Make this sound more intelligent -->
+
+The Traversy Media tutorial I am using on Udemy to complete this project is somewhat out of date as the way to do some things with MongoDB Atlas has changed. As such, I have detailed a more up-to-date list of instructions.
 
 #### Creating a Cluster in MongoDB Atlas
 
@@ -48,11 +50,47 @@ Mongo is a noSQL (non-relational) database that is different from mySQL and Post
 
 #### Adding Security Features to the MongoDB Atlas cluster
 
-1. Select the cluster you'll be using for this project.
-2. Set security credentials for the cluster.
-3. Whitelist the IP for additional security
+1. Using the navigation bar on the left side of the screen, select "Database Access."
+2. On the following screen, select "Add New Database User"
+<!-- Certificate, AWS IAM, vs Password -->
+3. Create a user to your specifications. You can select from three authentication methods (password, certificate, or AWS IAM).
+4. Once your user has been created, select "network access."
+5. On the following screen, select "Add IP address." From here you can chose to whitelist a specific IP address to allow access to the database, or allow access from anywhere. This is contingent upon what stage of development you are in and also your preference for level of security.
+
+### Creating the Express Backend
+
+1. Create a .gitignore file to exclude `node_modules/` and `.env`. If you are using a Mac, you also want to exclude the `.DS_Store` folder.
+2. If you did not start by cloning a repository created on the GitHub website, enter the `git init` command in the termianl.
+3. Run `npm init` in the terminal to create a package.json file by following the prompts that follow.
+4. Install NPM packages (see Dependencies and Developer Dependencies list). Use `npm i` for dependnecies and `npm i -D` for developer dependencies.
+
+## DEPENDENCIES
+
+| PACKAGE                                                              | DETAILS/PURPOSE                                                                        |
+| -------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| [express](https://www.npmjs.com/package/express)                     | Main framework.                                                                        |
+| [express-validator](https://www.npmjs.com/package/express-validator) | Data Validation for post request to API. If fields are missing it will throw an error. |
+| [bcryptjs](https://www.npmjs.com/package/bcryptjs)                   | Password encryption.                                                                   |
+| [config](https://www.npmjs.com/package/config)                       | Global variables                                                                       |
+| [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)           | User Validation                                                                        |
+| [mongoose](https://www.npmjs.com/package/mongoose)                   | Database interaction                                                                   |
+| [cors](https://www.npmjs.com/package/cors)                           | Express middleware                                                                     |
+
+## DEV DEPENDENCIES
+
+| PACKAGE                                          | DETAILS/PURPOSE                                           |
+| ------------------------------------------------ | --------------------------------------------------------- |
+| [nodemon](https://www.npmjs.com/package/nodemon) | Constant refreshing of the backend when server is active. |
+
+## EXTRA DEPENDENCIES
+
+| PACKAGE                                                          | DETAILS/PURPOSE                           |
+| ---------------------------------------------------------------- | ----------------------------------------- |
+| [gradient-string](https://www.npmjs.com/package/gradient-string) | Aesthetic choice for terminal print outs. |
 
 ## Resources
 
 - Traversy Media MERN Stack Tutorial
 - Udemy
+
+##### _Last Updated_: 20211501
