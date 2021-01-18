@@ -71,7 +71,7 @@ Some more in-depth SOPs are included within this repository.   -->
 | [express](https://www.npmjs.com/package/express)                     | Main framework.                                                                        |
 | [express-validator](https://www.npmjs.com/package/express-validator) | Data Validation for post request to API. If fields are missing it will throw an error. |
 | [bcryptjs](https://www.npmjs.com/package/bcryptjs)                   | Password encryption.                                                                   |
-| [config](https://www.npmjs.com/package/config)                       | Global variables                                                                       |
+| ~~[config](https://www.npmjs.com/package/config)~~                       | ~~Global variables~~                                                                       |
 | [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)           | User Validation                                                                        |
 | [mongoose](https://www.npmjs.com/package/mongoose)                   | Database interaction                                                                   |
 | [cors](https://www.npmjs.com/package/cors)                           | Express middleware                                                                     | -->
