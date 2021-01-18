@@ -19,7 +19,7 @@ router.get('/', auth, async (req, res) => {
                 userMap[user._id] = user;
             });
             res.send(userMap);
-        });
+        }).select('-password');
     } catch (err) {
         console.error(err.message);
     }
