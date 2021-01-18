@@ -7,7 +7,6 @@ const db = process.env.MONGO_URI;
 
 // ACTION
 const connectDB = async () => {
-    // In most cases when async/await is used, it needs to be placed within a try/catch block as such.
     try{
         await mongoose.connect(db, {
             useNewUrlParser: true,
@@ -18,7 +17,7 @@ const connectDB = async () => {
         console.log(gradient.morning(`MongoDB Connected ...`));
     }catch(err){
         console.error(gradient.mind(err.message));
-        process.exit(1); //Escape process with failure.
+        process.exit(1);
     }
 }
 
