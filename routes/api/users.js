@@ -13,7 +13,13 @@ const User = require('../../models/User');
 // @access  Private
 router.get('/', auth, async (req, res) => {
     try {
-        const user = await User.find(id);
+        const user = await User.find({}, (err, users) => {
+            var userMap = {};
+            users.forEach((user) => {
+                userMap[user._id] = user;
+            });
+            res.send(userMap);
+        });
     } catch (err) {
         console.error(err.message);
     }
