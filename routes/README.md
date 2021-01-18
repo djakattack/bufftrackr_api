@@ -1,6 +1,0 @@
-<!--
-
-- RESTful API
-- HTTP requests
-
- -->
