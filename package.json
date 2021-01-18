@@ -4,7 +4,8 @@
   "description": "This document is meant to serve as a standard operating procedure (SOP) for the construction of the back end code base for a MERN stack application. Much of this code was written following a tutorial from Traversy media. The intention behind much of what is written here is to allow an individual with minimal experience coding to follow the instructions and perfectly reconstruct an exact duplicate of this application (minus design details) as well as provide support for some issues that may crop up during that process (provided the individual experience is similar or identical to my own).",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server",
+    "server": "nodemon server"
   },
   "repository": {
     "type": "git",
