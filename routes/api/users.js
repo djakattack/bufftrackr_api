@@ -3,13 +3,25 @@ const gradient = require('gradient-string');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const auth = require('../../middleware/auth')
 const { check, validationResult } = require('express-validator');
 
 const User = require('../../models/User');
 
+// @route   GET api/users
+// @descr   Display all users
+// @access  Private
+router.get('/', auth, async (req, res) => {
+    try {
+        const user = await User.find(id);
+    } catch (err) {
+        console.error(err.message);
+    }
+})
+
 // @route   POST api/users
 // @descr   Register User
-// @access  Public
+// @access  Private
 router.post(
     '/',
     [
@@ -47,6 +59,7 @@ router.post(
                     id: user.id
                 }
             }
+            //  TO DO: CHANGE EXPIRES IN
             jwt.sign(payload, process.env.JWTSECRET, { expiresIn: 360000 }, (err, token) => {
                 if (err) throw err;
                 res.json({ token });

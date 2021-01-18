@@ -29,4 +29,4 @@ app.use('/api/posts', require('./routes/api/posts'));
 app.use('/api/profile', require('./routes/api/profile'));
 app.use('/api/users', require('./routes/api/users'));
 
-app.listen(PORT, ()=> console.log(gradient.morning(`Server started on PORT ${PORT}`)));
+app.listen(PORT, () => console.log(gradient.morning(`Server started on PORT ${PORT}`)));

@@ -1,8 +1,8 @@
 {
-  "name": "bufftrackr_api",
+  "name": "bufftrackr",
   "version": "1.0.0",
-  "description": "This document is meant to serve as a standard operating procedure (SOP) for the construction of the back end code base for a MERN stack application. Much of this code was written following a tutorial from Traversy media. The intention behind much of what is written here is to allow an individual with minimal experience coding to follow the instructions and perfectly reconstruct an exact duplicate of this application (minus design details) as well as provide support for some issues that may crop up during that process (provided the individual experience is similar or identical to my own).",
-  "main": "index.js",
+  "description": "",
+  "main": "server.js",
   "scripts": {
     "start": "node server",
     "server": "nodemon server"
@@ -24,11 +24,11 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-validator": "^6.9.2",
-    "gradient-string": "^1.2.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.12"
   },
   "devDependencies": {
+    "gradient-string": "^1.2.0",
     "nodemon": "^2.0.7"
   }
 }
