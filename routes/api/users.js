@@ -1,7 +1,9 @@
 const express = require('express');
+const gradient = require('gradient-string');
 const router = express.Router();
-const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const { check, validationResult } = require('express-validator');
 
 const User = require('../../models/User');
 
@@ -33,19 +35,22 @@ router.post(
                 email,
                 password
             });
-            console.log(`User: ${name}`);
-            console.log(`Email: ${email}`);
-            console.log(`password (pre-hash): ${password}`);
 
             //Create a salt to do the password hashing
             const salt = await bcrypt.genSalt(10);
-            console.log(`salt: ${salt}`);
             user.password = await bcrypt.hash(password, salt);
-            console.log(`password (post hash): ${password}`);
-            user.save();
+            await user.save();
 
             // Return JSON Web Token
-            res.send(`User Created`);
+            const payload = {
+                user: {
+                    id: user.id
+                }
+            }
+            jwt.sign(payload, process.env.JWTSECRET, { expiresIn: 360000 }, (err, token) => {
+                if (err) throw err;
+                res.json({ token });
+            });
         } catch (err) {
             console.error(gradient.mind(err.message));
             res.status(500).send('Server Error');
