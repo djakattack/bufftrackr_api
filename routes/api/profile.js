@@ -2,10 +2,14 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../../middleware/auth');
 const { check, validationResult } = require('express-validator');
-// const jwt = require('jsonwebtoken');
 
 const Profile = require('../../models/Profiles');
 const User = require('../../models/User');
+
+
+// ------------
+// GET REQUESTS
+// ------------
 
 // @route   GET api/profile/me
 // @descr   Get current user's profile
@@ -23,6 +27,45 @@ router.get('/me', auth, async (req, res) => {
     }
     res.send(`Profile Route`);
 });
+
+// @route   GET api/profile
+// @descr   Get all profiles
+// @access  Public
+router.get('/', async (req, res) => {
+    try {
+        const profiles = await Profile.find().populate('user', ['name', 'email']);
+        res.json(profiles)
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server error');
+    }
+});
+
+// @route   GET api/profile/user/:user_id
+// @descr   Get profile by user ID
+// @access  Public
+router.get('/user/:user_id', async (req, res) => {
+    try {
+        const profile = await Profile.findOne({ user: req.params.user_id }).populate('user', ['name', 'email']);
+        if (!profile) return res.status(400).json({ msg: 'Profile not found' });
+
+        res.json(profile);
+    } catch (err) {
+        console.error(err.message);
+
+        // Make sure we don't get the "Server Erorr" message when an ID is entered with too many characters
+        if (err.kind == 'ObjectId') {
+            return res.status(400).json({ msg: 'Profile not found' });
+        }
+
+        res.status(500).send('Server error');
+    }
+});
+
+
+// -------------
+// POST REQUESTS
+// -------------
 
 // @route   POST api/profile
 // @desc    Create or update user profile
@@ -109,65 +152,10 @@ router.post(
         res.send(`Hello`);
     });
 
+// ------------
+// PUT REQUESTS
+// ------------
 
-// @route   GET api/profile
-// @descr   Get all profiles
-// @access  Public
-router.get('/', async (req, res) => {
-    try {
-        const profiles = await Profile.find().populate('user', ['name', 'email']);
-        res.json(profiles)
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).send('Server error');
-    }
-});
-
-// @route   GET api/profile/user/:user_id
-// @descr   Get profile by user ID
-// @access  Public
-router.get('/user/:user_id', async (req, res) => {
-    try {
-        const profile = await Profile.findOne({ user: req.params.user_id }).populate('user', ['name', 'email']);
-        if (!profile) return res.status(400).json({ msg: 'Profile not found' });
-
-        res.json(profile);
-    } catch (err) {
-        console.error(err.message);
-
-        // Make sure we don't get the "Server Erorr" message when an ID is entered with too many characters
-        if (err.kind == 'ObjectId') {
-            return res.status(400).json({ msg: 'Profile not found' });
-        }
-
-        res.status(500).send('Server error');
-    }
-});
-
-// @route   DELETE api/profile
-// @descr   Get profile, user, & posts
-// @access  Private
-router.delete('/', auth, async (req, res) => {
-    try {
-        // @todo - remove users posts
-        // REMOVE PROFILE
-        await Profile.findOneAndRemove({ user: req.user.id })
-
-        // REMOVE USER
-        await User.findOneAndRemove({ _id: req.user.id })
-        res.json({ msg: 'User removed' });
-
-    } catch (err) {
-        console.error(err.message);
-
-        // Make sure we don't get the "Server Erorr" message when an ID is entered with too many characters
-        if (err.kind == 'ObjectId') {
-            return res.status(400).json({ msg: 'Profile not found' });
-        }
-
-        res.status(500).send('Server error');
-    }
-});
 
 // @route   PUT api/profile/experience
 // @descr   Add experience to profile
@@ -218,60 +206,53 @@ router.put(
         }
     });
 
-// ORIGINAL PUT REQUEST
-// router.put(
-//     '/experience',
-//     [
-//         auth,
-//         [
-//             check('title', 'Title is required').not().isEmpty,
-//             check('company', 'Company is required').not().isEmpty,
-//             check('from', 'From Date is required').not().isEmpty
-//         ]
-//     ],
-//     async (req, res) => {
-//         const errors = validationResult(req);
-//         console.log(`Errors: ${errors}`);
-//         if (!errors.isEmpty()) {
-//             return res.status(400).json({ errors: error.array() });
-//         }
 
-//         const {
-//             title,
-//             company,
-//             location,
-//             from,
-//             to,
-//             current,
-//             description
-//         } = req.body;
-//         console.log(`req.body: ${req.body}`);
+// ---------------
+// DELETE REQUESTS
+// ---------------
 
-//         const newExp = {
-//             title,
-//             company,
-//             location,
-//             from,
-//             to,
-//             current,
-//             description
-//         };
-//         console.log(`newExp: ${newExp}`);
 
-//         try {
-//             const profile = await Profile.findOne({ user: req.user.id });
-//             console.log(`Profile 1: ${profile}`);
-//             profile.experience.unshift(newExp);
-//             await profile.save();
-//             console.log(`Profile 2: ${profile}`);
+// @route   DELETE api/profile
+// @descr   Get profile, user, & posts
+// @access  Private
+router.delete('/', auth, async (req, res) => {
+    try {
+        // @todo - remove users posts
+        // REMOVE PROFILE
+        await Profile.findOneAndRemove({ user: req.user.id })
 
-//             res.json(profile);
-//             console.log(`You should be getting the json now in post man`);
-//         } catch (err) {
-//             console.log(`Errors in put route`);
-//             console.error(err.message);
-//             res.status(500).send("Server Error");
-//         }
-//     })
+        // REMOVE USER
+        await User.findOneAndRemove({ _id: req.user.id })
+        res.json({ msg: 'User removed' });
+
+    } catch (err) {
+        console.error(err.message);
+
+        // Make sure we don't get the "Server Erorr" message when an ID is entered with too many characters
+        if (err.kind == 'ObjectId') {
+            return res.status(400).json({ msg: 'Profile not found' });
+        }
+
+        res.status(500).send('Server error');
+    }
+});
+
+// @route   DELETE api/profile/experience
+// @descr   Add experience to profile
+// @access  Private
+router.delete('/experience/:exp_id', auth, async (req, res) => {
+    try {
+        const profile = await Profile.findOne({ user: req.user.id }); // Find the profile
+
+        // GET REMOVE INDEX
+        const removeIndex = profile.experience.map(item => item.id).indexOf(req.params.exp_id);
+        profile.experience.splice(removeIndex, 1);
+        await profile.save();
+        res.json(profile);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server error');
+    }
+});
 
 module.exports = router;
