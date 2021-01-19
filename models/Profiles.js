@@ -25,7 +25,7 @@ const ProfileSchema = new mongoose.Schema({
     bio: {
         type: String
     },
-    // TO DO: THIS ONE WILL NOT BE NECESSARY FOR THIS PROJECT
+    // @todo THIS ONE WILL NOT BE NECESSARY FOR THIS PROJECT
     githubusername: {
         type: String
     },

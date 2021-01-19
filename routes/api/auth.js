@@ -55,7 +55,7 @@ router.post(
                     id: user.id
                 }
             }
-            //  TO DO: CHANGE EXPIRES IN
+            //  @todo CHANGE EXPIRES IN
             jwt.sign(payload, process.env.JWTSECRET, { expiresIn: 360000 }, (err, token) => {
                 if (err) throw err;
                 res.json({ token });

@@ -38,7 +38,6 @@ router.post(
         ]
     ],
     async (req, res) => {
-        // TO DO:  Why no Try/Catch box?
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
@@ -62,8 +61,7 @@ router.post(
         const profileFields = {};
         profileFields.user = req.user.id;
 
-        // TO DO: Find a more efficient way to make this happen.
-        // How to do for loop?
+        // @todo Find a more efficient way to make this happen.
 
         if (company) profileFields.company = company
         if (status) profileFields.status = status
@@ -146,5 +144,27 @@ router.get('/user/:user_id', async (req, res) => {
     }
 });
 
+// @route   DELETE api/profile
+// @descr   Get profile, user, & posts
+// @access  Private
+router.delete('/', auth, async (req, res) => {
+    try {
+        // @todo - remove users posts
+        // REMOVE PROFILE
+        await Profile.findOneAndRemove({ user: req.user.id })
+        if (!profile) return res.status(400).json({ msg: 'Profile not found' });
+
+        res.json(profile);
+    } catch (err) {
+        console.error(err.message);
+
+        // Make sure we don't get the "Server Erorr" message when an ID is entered with too many characters
+        if (err.kind == 'ObjectId') {
+            return res.status(400).json({ msg: 'Profile not found' });
+        }
+
+        res.status(500).send('Server error');
+    }
+});
 
 module.exports = router;
