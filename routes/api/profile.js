@@ -111,4 +111,40 @@ router.post(
         res.send(`Hello`);
     });
 
+
+// @route   GET api/profile
+// @descr   Get all profiles
+// @access  Public
+router.get('/', async (req, res) => {
+    try {
+        const profiles = await Profile.find().populate('user', ['name', 'email']);
+        res.json(profiles)
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server error');
+    }
+});
+
+// @route   GET api/profile/user/:user_id
+// @descr   Get profile by user ID
+// @access  Public
+router.get('/user/:user_id', async (req, res) => {
+    try {
+        const profile = await Profile.findOne({ user: req.params.user_id }).populate('user', ['name', 'email']);
+        if (!profile) return res.status(400).json({ msg: 'Profile not found' });
+
+        res.json(profile);
+    } catch (err) {
+        console.error(err.message);
+
+        // Make sure we don't get the "Server Erorr" message when an ID is entered with too many characters
+        if (err.kind == 'ObjectId') {
+            return res.status(400).json({ msg: 'Profile not found' });
+        }
+
+        res.status(500).send('Server error');
+    }
+});
+
+
 module.exports = router;
