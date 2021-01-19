@@ -2,6 +2,8 @@
 
 // For weight training exercises, there should be a way to input weight lifted, and reps completed.  Should allow for variations for each set (I.E. 1 set of 15 at 100lbs, 1 set of 15 of 120 lbs, 1 set of 8 at 150 lbs, 1 set of 30 at 50lbs, for a total of 4 sets for that workout).  Checkbox for whether or not this was a PR (for both cardio and strength workouts).
 
+// Check how create and update profiles routes are done for determining how to proceed with this.
+
 // @route   POST api/workouts/me
 // @desc    Record the workouts completed.
 // @access  Private (Auth middleware)
