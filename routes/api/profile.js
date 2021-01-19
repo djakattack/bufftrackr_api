@@ -152,9 +152,11 @@ router.delete('/', auth, async (req, res) => {
         // @todo - remove users posts
         // REMOVE PROFILE
         await Profile.findOneAndRemove({ user: req.user.id })
-        if (!profile) return res.status(400).json({ msg: 'Profile not found' });
 
-        res.json(profile);
+        // REMOVE USER
+        await User.findOneAndRemove({ _id: req.user.id })
+        res.json({ msg: 'User removed' });
+
     } catch (err) {
         console.error(err.message);
 
