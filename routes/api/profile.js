@@ -3,7 +3,7 @@ const router = express.Router();
 const auth = require('../../middleware/auth');
 const { check, validationResult } = require('express-validator');
 
-const Profile = require('../../models/Profiles');
+const Profile = require('../../models/Profile');
 const User = require('../../models/User');
 
 // @todo At a later point in development, need to reassess which of these are still necessary as what needs to be added.
@@ -26,7 +26,6 @@ router.get('/me', auth, async (req, res) => {
         console.error(err.message);
         res.status(500).send('Server error');
     }
-    res.send(`Profile Route`);
 });
 
 // @route   GET api/profile

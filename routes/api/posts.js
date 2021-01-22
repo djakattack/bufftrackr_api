@@ -5,8 +5,8 @@ const auth = require('../../middleware/auth');
 const { check, validationResult } = require('express-validator');
 
 // Models
-const Post = require('../../models/Posts');
-const Profile = require('../../models/Profiles');
+const Post = require('../../models/Post');
+const Profile = require('../../models/Profile');
 const User = require('../../models/User');
 
 // ------------
@@ -33,7 +33,7 @@ router.get(
 // @descr   Get posts by ID
 // @access  Private
 router.get(
-    '/posts/:id', auth, async (req, res) => {
+    '/:id', auth, async (req, res) => {
         try {
             const post = await Post.findById(req.params.id);
             if (!post) return res.status(404).json({ msg: 'Post not found' });
