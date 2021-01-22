@@ -5,27 +5,55 @@ const auth = require('../../middleware/auth');
 const { check, validationResult } = require('express-validator');
 
 // Models
-const Posts = require('../../models/Posts');
-const Profiles = require('../../models/Profiles');
+const Post = require('../../models/Posts');
+const Profile = require('../../models/Profiles');
 const User = require('../../models/User');
 
 // ------------
 // GET REQUESTS
 // ------------
+
+
 // @route   GET api/posts
 // @descr   Show all posts
 // @access  Private
+router.get(
+    '/', auth, async (req, res) => {
+        try {
+            const post = await Post.find().sort({ date: -1 });
+            res.json(post);
+        } catch (err) {
+            console.error(err.message);
+            res.status(500).send('Server Error');
+        }
+    }
+);
 
-
-// @route   GET api/posts
+// @route   GET api/posts/:id
 // @descr   Get posts by ID
 // @access  Private
-
+router.get(
+    '/posts/:id', auth, async (req, res) => {
+        try {
+            const post = await Post.findById(req.params.id);
+            if (!post) return res.status(404).json({ msg: 'Post not found' });
+            res.json(post);
+        } catch (err) {
+            console.error(err.message);
+            if (err.kind == 'ObjectId') {
+                return res.status(400).json({ msg: 'Post Not Found' })
+            }
+            res.status(500).send('Server Error');
+        }
+    }
+);
 
 
 // -------------
 // POST REQUESTS
 // -------------
+
+
 // @route   POST api/posts
 // @descr   Create a post
 // @access  Private
@@ -61,21 +89,24 @@ router.post(
 // @route   POST api/posts
 // @descr   Comment on a post
 // @access  Private
-
+router.post('/', auth, async (req, res) => { });
 
 
 // ---------------
 // DELETE REQUESTS
 // ---------------
+
+
 // @route   DELETE api/posts
 // @descr   Delete as comment
 // @access  Private
+router.delete('/', auth, async (req, res) => { });
 
 
 // @route   DELETE api/posts
 // @descr   Delete a post
 // @access  Private
-
+router.delete('/', auth, async (req, res) => { });
 
 
 // ------------
@@ -84,11 +115,12 @@ router.post(
 // @route   PUT api/posts
 // @descr   Like a post
 // @access  Private
-
+router.put('/', auth, async (req, res) => { });
 
 // @route   PUT api/posts
 // @descr   Unlike a post
 // @access  Private
+router.put('/', auth, async (req, res) => { });
 
 
 
