@@ -6,6 +6,7 @@ const { check, validationResult } = require('express-validator');
 const Profile = require('../../models/Profiles');
 const User = require('../../models/User');
 
+// @todo At a later point in development, need to reassess which of these are still necessary as what needs to be added.
 
 // ------------
 // GET REQUESTS
@@ -67,6 +68,7 @@ router.get('/user/:user_id', async (req, res) => {
 // POST REQUESTS
 // -------------
 
+// @todo    Will definitely need this route in the end, but may need reeval as to what goes on here
 // @route   POST api/profile
 // @desc    Create or update user profile
 // @access  Private
@@ -157,6 +159,7 @@ router.post(
 // PUT REQUESTS
 // ------------
 
+// @todo    Won't need experience, but may be able to repurpose this to something necessary?
 // @route   PUT api/profile/experience
 // @descr   Add experience to profile
 // @access  Private
@@ -206,6 +209,7 @@ router.put(
         }
     });
 
+// @todo    Definitely won't need this
 // @route   PUT api/profile/education
 // @descr   Add education to profile
 // @access  Private
@@ -283,6 +287,7 @@ router.delete('/', auth, async (req, res) => {
     }
 });
 
+// @todo    Won't need experience, but may be able to repurpose this to something necessary?
 // @route   DELETE api/profile/experience
 // @descr   Remove experiecne from profile
 // @access  Private
@@ -302,6 +307,7 @@ router.delete('/experience/:exp_id', auth, async (req, res) => {
     }
 });
 
+// @todo    Definitely won't need this
 // @route   DELETE api/profile/education
 // @descr   Remove education from profile
 // @access  Private
