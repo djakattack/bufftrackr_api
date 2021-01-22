@@ -72,7 +72,7 @@ router.post(
         }
         try {
             const user = await User.findById(req.user.id).select('-password');
-            const newPost = new Posts({
+            const newPost = new Post({
                 text: req.body.text,
                 name: user.name,
                 user: req.user.id
@@ -106,7 +106,31 @@ router.delete('/', auth, async (req, res) => { });
 // @route   DELETE api/posts
 // @descr   Delete a post
 // @access  Private
-router.delete('/', auth, async (req, res) => { });
+router.delete('/:id', auth, async (req, res) => {
+    try {
+        const post = await Post.findById(req.params.id);
+
+        // Check Post
+        if (!post) {
+            return res.status(400).json({ msg: 'Post Not Found' })
+        }
+
+        // Check User
+        if (post.user.toString() !== req.user.id) {
+            return res.status(401).json({ msg: "User not authorized" })
+        }
+
+        await post.remove();
+        res.json({ msg: 'Post removed' });
+
+    } catch (err) {
+        console.error(err.message);
+        if (err.kind == 'ObjectId') {
+            return res.status(400).json({ msg: 'Post Not Found' })
+        }
+        res.status(500).send('Server Error');
+    }
+});
 
 
 // ------------
