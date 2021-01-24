@@ -88,6 +88,16 @@ const ProfileSchema = new mongoose.Schema({
             }
         }
     ],
+    metrics: [
+        {
+            weight: { type: Number },
+            bodyfat: { type: Number },
+            date: {
+                type: Date,
+                default: Date.now
+            }
+        }
+    ],
     social: {
         youtube: {
             type: String

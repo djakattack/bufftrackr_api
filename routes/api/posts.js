@@ -11,8 +11,6 @@ const User = require('../../models/User');
 // ------------
 // GET REQUESTS
 // ------------
-
-
 // @route   GET api/posts
 // @descr   Show all posts
 // @access  Private

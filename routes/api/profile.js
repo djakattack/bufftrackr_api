@@ -156,7 +156,7 @@ router.post(
 
 // ------------
 // PUT REQUESTS
-// ------------
+// -----------
 
 // @todo    Won't need experience, but may be able to repurpose this to something necessary?
 // @route   PUT api/profile/experience
